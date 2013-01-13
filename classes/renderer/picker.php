@@ -18,6 +18,7 @@ class Renderer_Picker extends \Fieldset_Field
             'buttonColorize'    => true,
             'buttonImage'       => 'static/apps/sdrdis_color/plugins/colorpicker/images/ui-colorpicker.png'
         ),
+        'default' => '000000',
     );
 
     /**
@@ -50,6 +51,11 @@ class Renderer_Picker extends \Fieldset_Field
     {
         parent::build();
         $this->fieldset()->append(static::js_init($this->get_attribute('id'), $this->options));
+
+        if (empty($this->value)) {
+            $this->value = $this->options['default'];
+        }
+
         $colorpicker_options = $this->options['colorpicker'];
         $this->set_attribute('data-colorpicker-options', htmlspecialchars(\Format::forge()->to_json($colorpicker_options)));
 
